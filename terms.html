@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Literata:opsz,wght@7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#201B15; --ink-2:#5C5548; --ink-3:#7A7062;
+    --paper:#FBF8F3; --card:#fff; --sand:#F3EEE6;
+    --line:rgba(32,27,21,.09); --green:#3C7546; --green-2:#4A8F58;
+    --sans:'Hanken Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+    --serif:'Literata',Georgia,serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{background:var(--paper);color:var(--ink);font:400 16px/1.7 var(--sans);text-rendering:optimizeLegibility}
+  a{color:var(--green);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+
+  header.bar{position:sticky;top:0;z-index:10;background:rgba(251,248,243,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .bar .wrap{max-width:1140px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:15px;padding-bottom:15px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--ink)}
+  .brand:hover{text-decoration:none}
+  .brand span{font:600 17px var(--serif)}
+  .bar nav{display:flex;align-items:center;gap:24px;font:500 14.5px var(--sans)}
+  .bar nav a{color:var(--ink-2)}
+  .bar nav a:hover{color:var(--green);text-decoration:none}
+
+  .hero{padding:clamp(44px,7vw,76px) 0 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--sand);border:1px solid var(--line);border-radius:18px;padding:5px 13px;font:600 11.5px var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+  h1{margin:16px 0 0;font:700 clamp(30px,5vw,44px)/1.15 var(--sans);letter-spacing:-0.02em}
+  .lede{margin-top:14px;font:400 17.5px/1.65 var(--sans);color:var(--ink-2);text-wrap:pretty}
+  .meta{margin-top:18px;font:400 13.5px var(--sans);color:var(--ink-3)}
+
+
+  .toc{margin-top:34px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 26px}
+  .toc h2{font:600 12px var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+  .toc ol{margin:14px 0 0;padding:0;list-style:none;columns:2;column-gap:32px;font:400 14.5px/2 var(--sans)}
+  .toc li{break-inside:avoid;counter-increment:toc}
+  .toc li a{color:var(--ink-2)}
+  .toc li a::before{content:counter(toc) ". ";color:var(--ink-3)}
+  .toc ol{counter-reset:toc}
+
+  main{padding:8px 0 40px;counter-reset:sec}
+  section{padding-top:44px;scroll-margin-top:78px}
+  section h2{counter-increment:sec;font:700 clamp(19px,2.4vw,23px)/1.3 var(--sans);letter-spacing:-0.012em}
+  section h2::before{content:counter(sec) ". ";color:var(--green)}
+  section h3{margin-top:22px;font:600 15.5px var(--sans)}
+  section p{margin-top:12px;font:400 15.5px/1.75 var(--sans);color:var(--ink-2);text-wrap:pretty}
+  section ul{margin:12px 0 0;padding-left:0;list-style:none}
+  section li{position:relative;padding-left:22px;margin-top:9px;font:400 15.5px/1.7 var(--sans);color:var(--ink-2)}
+  section li::before{content:"";position:absolute;left:4px;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--green-2)}
+  section strong{color:var(--ink);font-weight:600}
+
+  .callout{margin-top:18px;background:var(--sand);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+  .callout p{margin-top:0;color:var(--ink)}
+  .callout p + p{margin-top:10px}
+
+  table{width:100%;border-collapse:collapse;margin-top:18px;font:400 14.5px var(--sans);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  th{font-weight:600;color:var(--ink);background:var(--sand);font-size:13px;letter-spacing:.01em}
+  tr:last-child td{border-bottom:none}
+  .scroller{overflow-x:auto}
+
+  footer.foot{background:var(--ink);color:#B8AE9F;margin-top:72px}
+  .foot .wrap{max-width:1140px;padding-top:44px;padding-bottom:36px;display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font:400 13.5px var(--sans)}
+  .foot a{color:#B8AE9F}
+  .foot a:hover{color:#F6F3EE}
+  .foot .links{display:flex;gap:26px;flex-wrap:wrap}
+  .foot .copy{color:#7A7062;font-size:12.5px}
+
+  @media (max-width:640px){ .toc ol{columns:1} .bar nav{gap:16px;font-size:13.5px} }
+</style>
+<title>Terms of Service · Liqrai Reader</title>
+<meta name="description" content="The agreement between you and Liqrai Reader: what you get, how tokens work, how billing works.">
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span style="width:30px;height:30px;border-radius:9px;background:#201B15;display:flex;align-items:center;justify-content:center;flex:none">
+        <svg width="19" height="19" viewBox="0 0 44 44" aria-hidden="true"><rect x="10" y="6" width="9" height="30" rx="2" fill="#FDFBF8"></rect><rect x="10" y="29" width="24" height="9" rx="2" fill="#5FA96D"></rect><circle cx="33" cy="12" r="4" fill="#5FA96D"></circle></svg>
+      </span>
+      <span>Liqrai Reader</span>
+    </a>
+    <nav>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <span class="eyebrow">Legal</span>
+  <h1>Terms of Service</h1>
+  <p class="lede">The agreement between you and Liqrai Reader: what you get, what tokens are, how billing works, and the handful of things you agree not to do.</p>
+  <p class="meta">Version 1.0 · Last updated 22 September 2026 · Effective 1 October 2026</p>
+
+
+  <nav class="toc" aria-label="Contents">
+    <h2>On this page</h2>
+    <ol>
+      <li><a href="#short">The short version</a></li>
+      <li><a href="#agreement">Agreement to these terms</a></li>
+      <li><a href="#account">Your account</a></li>
+      <li><a href="#free">The free plan</a></li>
+      <li><a href="#tokens">Tokens: how they work</a></li>
+      <li><a href="#billing">Payment, renewal and taxes</a></li>
+      <li><a href="#refunds">Refunds</a></li>
+      <li><a href="#team">Team plans</a></li>
+      <li><a href="#students">Student and educator pricing</a></li>
+      <li><a href="#use">Acceptable use</a></li>
+      <li><a href="#content">Your content</a></li>
+      <li><a href="#ai">AI output</a></li>
+      <li><a href="#ip">Our intellectual property</a></li>
+      <li><a href="#availability">Availability and support</a></li>
+      <li><a href="#termination">Suspension and termination</a></li>
+      <li><a href="#warranty">Disclaimer of warranties</a></li>
+      <li><a href="#liability">Limitation of liability</a></li>
+      <li><a href="#changes">Changes to these terms</a></li>
+      <li><a href="#law">Governing law and disputes</a></li>
+      <li><a href="#contact">Contact us</a></li>
+    </ol>
+  </nav>
+</div>
+
+<main class="wrap">
+
+  <section id="short">
+    <h2>The short version</h2>
+    <div class="callout">
+      <p><strong>Reading is free, forever.</strong> Opening PDFs, highlighting, note-taking and focus mode cost nothing and are not time-limited.</p>
+      <p><strong>You pay for AI tokens, not for time.</strong> A token is a unit of AI processing. You buy them once or refill them monthly, and they are spent only when you invoke an AI feature.</p>
+      <p><strong>Tokens do not expire.</strong> A pack you bought stays on your balance. Monthly refills roll over.</p>
+      <p><strong>Your documents stay yours.</strong> We claim no ownership over anything you read, write or generate in the app.</p>
+    </div>
+    <p>This summary is for orientation only. The numbered sections below are the binding terms.</p>
+  </section>
+
+  <section id="agreement">
+    <h2>Agreement to these terms</h2>
+    <p>These Terms of Service (the "Terms") are a binding agreement between you and Liqrai Reader ("Liqrai", "we", "us"), operated from Addis Ababa, Ethiopia. By downloading, installing, signing in to or using Liqrai Reader (the "Service") you accept these Terms. If you do not accept them, do not use the Service.</p>
+    <p>If you are accepting on behalf of an organisation, you confirm that you have authority to bind that organisation, and "you" means that organisation.</p>
+    <p>Our <a href="privacy.html">Privacy Policy</a> is incorporated into these Terms by reference.</p>
+  </section>
+
+  <section id="account">
+    <h2>Your account</h2>
+    <ul>
+      <li>You must be at least 13, and old enough to enter a contract where you live.</li>
+      <li>You are responsible for the accuracy of your account details and for everything done under your credentials.</li>
+      <li>Keep your password confidential and tell us promptly at <a href="mailto:liqraipdf@gmail.com">liqraipdf@gmail.com</a> if you suspect unauthorised access.</li>
+      <li>One account is for one person. Team seats are covered in section 8.</li>
+      <li>The free plan may be used on 1 device; a paid token balance unlocks unlimited devices on your account.</li>
+    </ul>
+  </section>
+
+  <section id="free">
+    <h2>The free plan</h2>
+    <p>The free plan gives you unlimited PDF reading with no page caps, no watermarks and no advertising, together with highlights, notes, focus mode, smart return and up to 3 collections.</p>
+    <p>It also includes <strong>50,000 AI tokens each calendar month</strong>. Free-plan tokens are granted on the first day of each month, do <strong>not</strong> roll over, and have no cash value. If you exhaust them, every non-AI part of the Service continues to work normally until the next grant.</p>
+    <p>We may change the size of the free monthly grant on 30 days' notice. We will not introduce a page limit, a watermark or advertising into the free reader.</p>
+  </section>
+
+  <section id="tokens">
+    <h2>Tokens: how they work</h2>
+    <h3>What a token is</h3>
+    <p>A token is the unit in which AI processing is measured — roughly three-quarters of an English word. Your balance is debited only when you invoke an AI feature. Reading, scrolling, searching, highlighting, annotating and syncing consume no tokens.</p>
+    <h3>Indicative rates</h3>
+    <div class="scroller">
+      <table>
+        <thead><tr><th>Action</th><th>Typical cost</th><th>1.5M tokens is about</th></tr></thead>
+        <tbody>
+          <tr><td>Summarise a page</td><td>~1,200 tokens</td><td>1,250 summaries</td></tr>
+          <tr><td>Explain a passage</td><td>~800 tokens</td><td>1,875 explanations</td></tr>
+          <tr><td>Ask your document a question</td><td>~2,500 tokens</td><td>600 questions</td></tr>
+          <tr><td>Generate 10 review cards</td><td>~3,000 tokens</td><td>5,000 card sets</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>These figures are <strong>estimates</strong>, not guarantees. Actual consumption varies with the length and density of the passage, the language, and the model version in use. The app shows the exact debit for every action in the token meter, and the full ledger is exportable from <strong>Settings → Tokens → Export usage</strong>.</p>
+    <h3>Buying tokens</h3>
+    <p>Tokens are sold two ways:</p>
+    <ul>
+      <li><strong>One-time pack</strong> — 1,500,000 tokens for US$6.99 (about $4.66 per million). Charged once. No subscription. The balance never expires.</li>
+      <li><strong>Monthly refill</strong> — 1,500,000 tokens for US$4.99 per month (about $3.33 per million), a 29% saving. Charged monthly until you cancel. <strong>Unused tokens roll over</strong> and accumulate for as long as the refill is active.</li>
+    </ul>
+    <h3>Expiry, roll-over and forfeiture</h3>
+    <ul>
+      <li>Purchased tokens — from packs or refills — do not expire while your account is open.</li>
+      <li>If you cancel a monthly refill, the tokens already in your balance remain usable indefinitely; you simply stop receiving new ones.</li>
+      <li>If you delete your account, or we terminate it for a breach under section 15, any unspent balance is forfeited without refund.</li>
+      <li>Tokens have no cash value, cannot be redeemed for money, and cannot be sold, transferred or shared between accounts, except within a Team pool under section 8.</li>
+    </ul>
+    <h3>Running out</h3>
+    <p>When your balance reaches zero the AI features pause. Nothing you have already generated is removed, hidden or locked — every past summary, answer and review card stays fully readable, and the reader itself is unaffected. You can top up at any time, or wait for your next refill or monthly free grant.</p>
+    <h3>Price and rate changes</h3>
+    <p>We may change pack prices and the token cost of individual actions. Changes take effect 30 days after we notify account holders, apply only to purchases and refills made after that date, and never retroactively re-price tokens already in your balance.</p>
+  </section>
+
+  <section id="billing">
+    <h2>Payment, renewal and taxes</h2>
+    <ul>
+      <li>All prices are in US dollars and exclude tax unless stated otherwise. You are responsible for any VAT, sales tax or withholding that applies where you are.</li>
+      <li>One-time packs are charged immediately and in full when you confirm the purchase.</li>
+      <li>Monthly refills renew automatically on the same day each month until cancelled. You authorise us to charge your stored payment method for each renewal.</li>
+      <li>You can cancel a refill at any time from <strong>Settings → Tokens → Manage refill</strong>. Cancellation stops the next charge; it does not retroactively refund the current period, and you keep every token already granted.</li>
+      <li>If a charge fails we will retry over 7 days and email you. If it still fails, the refill lapses and your account reverts to the free monthly grant, with your existing balance untouched.</li>
+      <li>Receipts are emailed for every charge and are also available in your account.</li>
+    </ul>
+  </section>
+
+  <section id="refunds">
+    <h2>Refunds</h2>
+    <ul>
+      <li><strong>Unused packs</strong> — a one-time pack is fully refundable within 14 days of purchase provided fewer than 10% of its tokens have been spent.</li>
+      <li><strong>Refills</strong> — the most recent monthly charge is refundable within 14 days if fewer than 10% of that month's grant has been spent. Earlier months are not refundable.</li>
+      <li><strong>Faults</strong> — if the AI features are unavailable for more than 24 consecutive hours through our fault, we will refund or re-credit the affected tokens on request.</li>
+      <li><strong>Mistaken charges</strong> — always refunded in full, promptly, whatever the balance.</li>
+      <li>Where local consumer law gives you stronger rights, those rights apply and nothing here limits them.</li>
+    </ul>
+    <p>Request a refund by emailing <a href="mailto:liqraipdf@gmail.com">liqraipdf@gmail.com</a> from your account address. Approved refunds return to the original payment method within 10 business days.</p>
+  </section>
+
+  <section id="team">
+    <h2>Team plans</h2>
+    <p>Team plans start at 5 seats and cost US$39 per month for a shared pool of 15,000,000 tokens (about $2.60 per million). Additional seats and additional pool capacity are quoted on request.</p>
+    <ul>
+      <li>The pool is shared: any member may draw from it until it is exhausted. Administrators can set per-member budgets to prevent that.</li>
+      <li>The account administrator is responsible for adding and removing members, for what members do with the Service, and for payment.</li>
+      <li>Unused pool tokens roll over while the plan is active, and are forfeited 30 days after it ends.</li>
+      <li>Removing a member does not refund tokens they have already spent.</li>
+    </ul>
+  </section>
+
+  <section id="students">
+    <h2>Student and educator pricing</h2>
+    <p>Students and educators who verify an academic email address receive <strong>double tokens</strong> — 3,000,000 on the Pro pack or refill for the same price. Verification is required annually. We may withdraw the discount if verification fails or if the benefit is resold or shared, and we may ask for supporting evidence of enrolment or employment.</p>
+  </section>
+
+  <section id="use">
+    <h2>Acceptable use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Upload, process or distribute material you have no right to use, including PDFs obtained in breach of someone else's copyright.</li>
+      <li>Use the AI features to generate unlawful, defamatory, harassing or deliberately deceptive material.</li>
+      <li>Resell, sublicense, rent out or otherwise commercialise access to the Service or to your token balance.</li>
+      <li>Automate, script or otherwise mass-issue AI requests outside the application's normal interface, or use the Service as a proxy for a third-party model API.</li>
+      <li>Circumvent the token meter, tamper with the ledger, or exploit a metering fault instead of reporting it.</li>
+      <li>Reverse engineer, decompile or disassemble the Service, except to the extent that applicable law expressly permits it.</li>
+      <li>Probe, scan or stress-test our infrastructure without prior written permission. Good-faith security research is welcome — write to us first.</li>
+    </ul>
+    <p>We may throttle, suspend or terminate accounts that breach this section, and we will tell you why unless telling you would compromise an investigation.</p>
+  </section>
+
+  <section id="content">
+    <h2>Your content</h2>
+    <p>You keep every right you already have in your documents, highlights, notes, summaries and review cards ("Your Content"). We claim no ownership over any of it.</p>
+    <p>You grant us a narrow, non-exclusive, worldwide, royalty-free licence to process Your Content <strong>solely</strong> to operate the Service for you — that is, to transmit a selected passage to our AI provider, return the result to your device, and store encrypted sync blobs if you turn sync on. The licence covers nothing else. It does not permit us to publish Your Content, to analyse it for our own purposes, or to use it to train any model, and it ends when you delete the content or your account.</p>
+    <p>You are responsible for keeping your own backups. Deleting a document from the app deletes it from your library; if sync is on, that deletion propagates to your other devices.</p>
+  </section>
+
+  <section id="ai">
+    <h2>AI output</h2>
+    <p>Summaries, explanations, answers and review cards are generated by a statistical model. <strong>They can be wrong, incomplete or misleading, even when they cite a page.</strong> Every answer carries a citation precisely so that you can check it against the source, and you should.</p>
+    <ul>
+      <li>Output is not professional advice of any kind — legal, medical, financial or academic.</li>
+      <li>Do not rely on it for decisions with real consequences without verifying it against the original document.</li>
+      <li>Output may not be unique. Similar passages may produce similar results for other users, and we make no claim that output is original or protectable.</li>
+      <li>As between you and us, you own the output generated from your documents, subject to any rights in the underlying source.</li>
+      <li>Tokens spent on an answer you dislike are not automatically refunded, though we will look at clear model failures case by case.</li>
+    </ul>
+  </section>
+
+  <section id="ip">
+    <h2>Our intellectual property</h2>
+    <p>The Service, its software, design, typography and the Liqrai name and marks belong to us and our licensors. We grant you a personal, revocable, non-transferable, non-exclusive licence to use the Service under these Terms. Nothing here transfers ownership of anything of ours to you.</p>
+    <p>Feedback you send us is gratefully received and may be used without restriction or compensation.</p>
+  </section>
+
+  <section id="availability">
+    <h2>Availability and support</h2>
+    <p>We aim for 99.5% monthly availability of account, sync and AI services, measured excluding scheduled maintenance announced at least 48 hours in advance. This is a target, not a contractual service level, except where a Team agreement says otherwise.</p>
+    <p>The reader itself works offline. Sign-in, sync and AI features need a connection.</p>
+    <p>Support is by email at <a href="mailto:liqraipdf@gmail.com">liqraipdf@gmail.com</a>, with a target first reply within one business day. Team plans receive priority handling.</p>
+  </section>
+
+  <section id="termination">
+    <h2>Suspension and termination</h2>
+    <p>You may stop using the Service at any time and delete your account from <strong>Settings → Account → Delete account</strong>. Deletion is irreversible and forfeits any unspent balance.</p>
+    <p>We may suspend or terminate your account if you materially breach these Terms, if we are required to by law, or if your use poses a security risk to the Service or to other users. Except where the breach is serious or unlawful, we will give you notice and a reasonable chance to put it right.</p>
+    <p>If we terminate your account for reasons other than your breach, we will refund the unused proportion of your most recent purchase.</p>
+    <p>Sections 11 through 20 survive termination.</p>
+  </section>
+
+  <section id="warranty">
+    <h2>Disclaimer of warranties</h2>
+    <p>To the fullest extent permitted by law, the Service is provided <strong>"as is" and "as available"</strong>, without warranties of any kind, whether express, implied or statutory, including any implied warranty of merchantability, fitness for a particular purpose, accuracy or non-infringement. We do not warrant that the Service will be uninterrupted, error-free, or that AI output will be accurate or suitable for your purpose.</p>
+    <p>Some jurisdictions do not allow the exclusion of implied warranties; in those places this section applies to the maximum extent permitted, and your statutory consumer rights are unaffected.</p>
+  </section>
+
+  <section id="liability">
+    <h2>Limitation of liability</h2>
+    <p>To the fullest extent permitted by law, neither party is liable for indirect, incidental, special, consequential or punitive damages, or for loss of profits, revenue, data or goodwill, however caused.</p>
+    <p>Our total aggregate liability arising out of or relating to the Service is limited to the greater of (a) the amount you paid us in the 12 months before the event giving rise to the claim, and (b) US$50.</p>
+    <p>Nothing in these Terms limits liability for death or personal injury caused by negligence, for fraud or fraudulent misrepresentation, or for anything else that cannot lawfully be limited.</p>
+  </section>
+
+  <section id="changes">
+    <h2>Changes to these terms</h2>
+    <p>We may revise these Terms. We will post the new version here with an updated version number and date, and for material changes we will email account holders and show an in-app notice at least 30 days before they take effect. Continuing to use the Service after that date means you accept the revision; if you do not, stop using the Service and contact us about a refund of any unused balance.</p>
+  </section>
+
+  <section id="law">
+    <h2>Governing law and disputes</h2>
+    <p>These Terms are governed by the laws of the Federal Democratic Republic of Ethiopia, without regard to conflict-of-laws rules. The courts of Addis Ababa have exclusive jurisdiction, except that consumers may bring proceedings in the courts of their own country of residence where local law gives them that right.</p>
+    <p>Before filing anything, please write to us — nearly every dispute we have seen was a misunderstanding that an email resolved. We commit to engaging in good faith for 30 days before escalating.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact us</h2>
+    <ul>
+      <li>Email — <a href="mailto:liqraipdf@gmail.com">liqraipdf@gmail.com</a></li>
+      <li>Phone — <a href="tel:+251919892275">+251 91 989 2275</a></li>
+      <li>Post — Liqrai Reader, Bole Sub-city, Addis Ababa, Ethiopia</li>
+    </ul>
+    <p>These Terms, together with the <a href="privacy.html">Privacy Policy</a>, are the entire agreement between us about the Service. If any provision is held unenforceable, the rest remains in force.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <div style="color:#F6F3EE;font:600 15px 'Literata',Georgia,serif">Liqrai Reader</div>
+      <div style="margin-top:6px">A calmer way to read, understand and remember your PDFs.</div>
+    </div>
+    <div class="links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:liqraipdf@gmail.com">liqraipdf@gmail.com</a>
+    </div>
+  </div>
+  <div class="wrap" style="max-width:1140px;padding-bottom:30px"><div class="copy">© 2026 Liqrai Reader. All rights reserved.</div></div>
+</footer>
+
+</body>
+</html>
